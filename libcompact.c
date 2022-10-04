@@ -1,3 +1,5 @@
+// This is all for testing - see libcompact.h
+
 #include "libcompact.h"
 #include <stdlib.h>
 #include <stdio.h>

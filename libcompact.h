@@ -1,9 +1,22 @@
+// Hi grader! This code serves two primary purposes:
+// - Provide some helpful type aliases, like `U8` for `uint8_t` or `I32_MAX` for `INT32_MAX`
+// - Define various macros used to generate test functions and run them. These aren't part of the actual assignments,
+//   I just use them to make sure my submissions run.
+//
+// I'm aware that the testing code (and the usage in main.c) is not really readable, but this is just because it was
+// only intended as a quick test, not an actual submission.
+
 #include <stdint.h>
 
 // Some nice shorthand
-#define R return
-typedef char C;typedef int I;typedef void V;typedef V(*F)(); // F is function pointer
-typedef uint64_t U64;typedef uint32_t U32;typedef uint16_t U16;typedef uint8_t U8;typedef int64_t I64;typedef int32_t I32;typedef int16_t I16;typedef int8_t I8;
+typedef uint64_t U64;
+typedef uint32_t U32;
+typedef uint16_t U16;
+typedef uint8_t U8;
+typedef int64_t I64;
+typedef int32_t I32;
+typedef int16_t I16;
+typedef int8_t I8;
 #define U8_MAX UINT8_MAX
 #define U16_MAX UINT16_MAX
 #define U32_MAX UINT32_MAX
@@ -12,6 +25,16 @@ typedef uint64_t U64;typedef uint32_t U32;typedef uint16_t U16;typedef uint8_t U
 #define I16_MAX INT16_MAX
 #define I32_MAX INT32_MAX
 #define I64_MAX INT64_MAX
+
+typedef struct {
+    I32* arr;
+    size_t len;
+} I32A; // I32 array
+
+// Testing stuff begins here!
+
+typedef char C;typedef int I;typedef void V;typedef V(*F)(); // F is function pointer
+#define R return
 
 // general utils
 #define P printf
@@ -22,7 +45,12 @@ typedef uint64_t U64;typedef uint32_t U32;typedef uint16_t U16;typedef uint8_t U
 #define _ , // used to provide a comma inside a macro argument (otherwise it will think it is multiple arguments)
 #define ESC_(...) __VA_ARGS__
 #define ESC(...) ESC_(__VA_ARGS__) // allow commas
-#define DO(n,x) {I i=0,_n=(n);for(;i<_n;++i){x;}} // compact loop
+#define DOI(n,i,x) {I i=0,_n=(n);for(;i<_n;++i){x;}} // compact loop
+#define DO(n,x) {I i=0,_n=(n);for(;i<_n;++i){x;}}
+#define Pa(a,l,f) {P("{");DOI(l,_pa,{P(f,a[_pa]);_pa<l-1&&P(", ");})P("}\n");} // print array
+#define Pad(a,l) Pa(a,l,"%d") // print array of digits
+#define Pan(a,l) Pa(a,l,"%s") // print array of strings
+#define Padsp(a) Pad(a->arr,a->len) // print array digit struct pointer
 
 // utils for testing
 #define VA_N_(a,b,c,d,e,f,g,h,i,j,N,...) N // helper for va counter, args except for N are not used
